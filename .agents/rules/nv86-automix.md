@@ -7,7 +7,7 @@ description: Правила разработки, сборки, дизайна �
 
 ## 1. Стек и структура проекта
 - **Стек:** React + Vite + Tailwind CSS + `framer-motion` + `lucide-react`.
-- **Данные:** `src/data/cars.json` (`280` конфигураций авто), VIN-декодер `src/utils/vinDecoder.js`.
+- **Данные:** `src/data/cars.json` (`286` конфигураций авто), VIN-декодер `src/utils/vinDecoder.js`.
 - **Обучение (свечи NGK & Denso):** `src/components/SparkPlugGuideModal.jsx` (9 слайдов, реальные каталожные изображения в `public/assets/plugs/*.webp`, фиксированная высота `h-[90vh] sm:h-[88vh]`, Lightbox-зум).
 - **Шапка и мобильная версия:** `src/components/Header.jsx` — на `< md` (`< 768px`) все элементы управления убраны в боковой выдвижной Side Drawer («Меню»), чтобы ничего не перекрывало логотип `NV86 AuToMix`.
 

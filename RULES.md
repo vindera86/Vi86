@@ -4,7 +4,7 @@
 
 ## 1. Архитектура и ключевые файлы
 - **Стек:** React + Vite + Tailwind CSS + `framer-motion` + `lucide-react`.
-- **Каталог авто:** `src/data/cars.json` (`280` конфигураций), декодер VIN: `src/utils/vinDecoder.js`.
+- **Каталог авто:** `src/data/cars.json` (`286` конфигураций), декодер VIN: `src/utils/vinDecoder.js`.
 - **Обучение по свечам:** `src/components/SparkPlugGuideModal.jsx` — 9 слайдов с реальными фото из каталогов NGK и Denso (`public/assets/plugs/*.webp`), фиксированной высотой `h-[90vh] sm:h-[88vh]` (без скачков) и полноэкранным зумом.
 - **Мобильное меню:** `src/components/Header.jsx` — на экранах `< 768px` (Samsung S24 Ultra и др.) используется выдвижной Side Drawer справа («Меню»).
 
