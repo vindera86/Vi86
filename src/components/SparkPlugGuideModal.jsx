@@ -446,6 +446,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
           />
 
           <motion.div
+            data-keep-dark
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
