@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-page: #07090e;
+    --bg-panel: #0d1320;
+    --bg-card: #0f1626;
+    --bg-card-hover: #141c30;
+    --bg-input: #0a0e1a;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --ambient-grad: radial-gradient(circle at 50% -10%, #111a2e 0%, #07090e 65%);
+  }
+
+  html.light {
+    --bg-page: #f8fafc;
+    --bg-panel: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --bg-input: #ffffff;
+    --border-color: #cbd5e1;
+    --border-card: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --ambient-grad: radial-gradient(circle at 50% -10%, #fdba7430 0%, #f8fafc 65%);
+  }
+
+  html, body {
+    font-family: 'Golos Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    font-synthesis-weight: none;
+    line-height: 1.5;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+}
+
+/* ================= LIGHT THEME NORMALIZATION =================
+   Only exact utility classes are matched (no [class*=...] scans): the browser
+   indexes class selectors, so a theme swap stays a cheap restyle.
+   Blueprint screens (.tech-schematic-screen) and [data-keep-dark] subtrees
+   keep their dark look in both themes. */
+
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* --- dark surfaces -> light surfaces --- */
+html.light .bg-slate-700:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-800:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-950:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-800\/60:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-800\/80:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900\/40:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900\/50:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900\/60:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900\/80:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-900\/90:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-950\/80:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-slate-950\/90:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-700:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-800:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-850:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-900:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-950:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-950\/80:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-carbon-900\/80:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  background-color: #eef2f7 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* --- translucent dark overlays -> light overlays --- */
+html.light .bg-black\/20:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-black\/40:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-black\/50:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-black\/60:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-white\/5:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-white\/10:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .bg-white\/15:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  background-color: rgba(248, 250, 252, 0.82) !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* --- light-on-dark text -> dark text --- */
+html.light .text-white:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-slate-50:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-slate-100:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-slate-200:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-slate-400:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #334155 !important;
+}
+
+html.light .text-slate-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #475569 !important;
+}
+
+/* --- accents: bright on dark -> readable on light --- */
+html.light .text-amberGold-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amberGold-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amberGold-500:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amberGold-600:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amber-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amber-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amber-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #92400e !important;
+}
+
+html.light .text-frost-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-frost-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-sky-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-sky-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-sky-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #0369a1 !important;
+}
+
+html.light .text-emerald-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-emerald-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-emerald-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #047857 !important;
+}
+
+/* --- borders written for dark backgrounds --- */
+html.light .border-white\/5:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .border-white\/10:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .border-white\/15:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .border-white\/20:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  border-color: #cbd5e1 !important;
+}
+
+/* Dedicated automotive CAD blueprint screens remain dark with high-contrast glowing elements in both themes */
+.tech-schematic-screen {
+  background-color: #0a0f1d !important;
+  color: #f8fafc !important;
+}
+.tech-schematic-screen .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+.tech-schematic-screen .text-slate-400 {
+  color: #94a3b8 !important;
+}
+.tech-schematic-screen .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+html.light dialog#car-detail-dialog > div {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+html.light dialog::backdrop {
+  background: rgba(15, 23, 42, 0.6) !important;
+}
+
+/* Ambient background: promoted to its own compositing layer so scrolling
+   never repaints the full-viewport gradient, and its gradient swap is instant
+   (gradient interpolation is not composited and caused jank on theme switch). */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--ambient-grad);
+  transform: translateZ(0);
+  contain: strict;
+}
+
+/* High performance panels */
+.glass-panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.12);
+}
+
+/* High performance cards */
+.glass-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  box-shadow: 0 4px 14px -3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  /* skip layout/paint for cards that are off screen */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 390px;
+}
+
+.glass-card:hover {
+  background-color: var(--bg-card-hover);
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.18);
+}
+
+.glass-input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(245, 158, 11, 0.6);
+  outline: none;
+}
+
+/* Modern Dialog modal styles per Modern Web Guidance */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: rgba(4, 6, 12, 0.85);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 158, 11, 0.6);
+}
+
+/* ---------- Hero accent gradient (readable in both themes) ---------- */
+.hero-accent {
+  background-image: linear-gradient(90deg, #fbbf24 0%, #fde68a 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html.light .hero-accent {
+  /* darker stops: amber-600 -> amber-800 -> sky-700 keep AA contrast on light backgrounds */
+  background-image: linear-gradient(90deg, #d97706 0%, #b45309 45%, #0369a1 100%) !important;
+}
+
+/* Hero photo fade: dark scrim on dark theme, soft white scrim on light theme */
+html.light .hero-fade {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.85) 0%,
+    rgba(248, 250, 252, 0.9) 55%,
+    #f8fafc 100%
+  ) !important;
+}
+/* Table rows: skip layout/paint for rows outside the viewport */
+.table-row-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 56px;
+}
+
+/* Theme swap: suppress transitions for the two frames of the swap itself.
+   Animating colour on thousands of nodes is what made the toggle feel heavy. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
+  animation: none !important;
+}

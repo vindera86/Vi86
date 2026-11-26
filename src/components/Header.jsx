@@ -1,0 +1,381 @@
+﻿import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  LayoutGrid,
+  Table2,
+  Scale,
+  Snowflake,
+  Sun,
+  Moon,
+  GraduationCap,
+  Menu,
+  X,
+} from 'lucide-react';
+import useBodyScrollLock from '../hooks/useBodyScrollLock';
+
+export default function Header({
+  viewMode,
+  setViewMode,
+  compareList,
+  setIsCompareOpen,
+  onOpenGuide,
+  theme,
+  setTheme,
+  winterMode,
+  setWinterMode,
+}) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useBodyScrollLock(mobileMenuOpen);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  return (
+    <>
+      <header className="sticky top-0 z-40 w-full glass-panel border-b border-white/10 shadow-lg transition-shadow">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Brand & Emblem */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="relative flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-xl overflow-hidden p-0.5 bg-gradient-to-br from-amberGold-400/40 via-slate-800 to-frost-500/30 border border-white/20 shadow-lg cursor-pointer">
+              <img
+                src="assets/logo.png"
+                alt="NV86 AuToMix Logo"
+                className="h-full w-full object-cover rounded-[9px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            </div>
+
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-base sm:text-xl font-black tracking-tight text-white font-sans whitespace-nowrap">
+                  NV86 <span className="text-amberGold-400">AuTo</span>Mix
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-frost-500/15 text-frost-300 border border-frost-400/20 whitespace-nowrap">
+                  <Snowflake className="w-3 h-3 text-frost-400" />
+                  ХМАО · 86
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Controls (md and above) */}
+          <div className="hidden md:flex items-center gap-2 shrink-0">
+            {/* Winter -40°C / Standard Interval Toggle */}
+            <button
+              onClick={() => setWinterMode((prev) => !prev)}
+              className={`flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+                winterMode
+                  ? 'bg-frost-500/15 text-frost-300 border-frost-400/30 hover:bg-frost-500/25'
+                  : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-slate-200'
+              }`}
+              title={
+                winterMode
+                  ? 'Режим ХМАО (-40 °C): показаны зимние интервалы замены'
+                  : 'Штатный режим: показаны заводские интервалы замены'
+              }
+            >
+              <Snowflake className={`w-3.5 h-3.5 ${winterMode ? 'text-frost-400' : 'text-slate-400'}`} />
+              <span className="hidden xl:inline">{winterMode ? '-40°C' : 'Штат'}</span>
+            </button>
+
+            {/* Day / Night Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+                theme === 'light'
+                  ? 'bg-amber-100 text-amber-900 border-amber-300 hover:bg-amber-200 shadow-sm'
+                  : 'bg-white/5 text-amberGold-300 border-white/10 hover:bg-white/10'
+              }`}
+              title={theme === 'dark' ? 'Переключить на дневную тему' : 'Переключить на ночную тему'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amberGold-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-800" />
+              )}
+            </button>
+
+            {/* View Mode Toggle: Grid / Table */}
+            <div className="flex items-center p-1 rounded-xl bg-black/20 border border-white/10">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  viewMode === 'grid'
+                    ? 'bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+                title="Вид: Карточки"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span className="hidden lg:inline">Карточки</span>
+              </button>
+              <button
+                onClick={() => setViewMode('table')}
+                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  viewMode === 'table'
+                    ? 'bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+                title="Вид: Таблица спецификаций"
+              >
+                <Table2 className="w-3.5 h-3.5" />
+                <span className="hidden lg:inline">Таблица</span>
+              </button>
+            </div>
+
+            {/* Spark Plug Training Presentation Trigger */}
+            <button
+              onClick={onOpenGuide}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer bg-white/5 text-slate-200 border-white/10 hover:bg-amberGold-500/15 hover:text-amberGold-300 hover:border-amberGold-400/30"
+              title="Обучение по свечам NGK и Denso (презентация)"
+            >
+              <GraduationCap className="w-4 h-4 text-amberGold-400 shrink-0" />
+              <span>Обучение</span>
+            </button>
+
+            {/* Comparison Drawer Trigger */}
+            <button
+              onClick={() => setIsCompareOpen(true)}
+              className={`relative flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+                compareList.length > 0
+                  ? 'bg-amberGold-500 text-slate-950 border-amberGold-400 shadow-glow-amber'
+                  : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10'
+              }`}
+              title="Сравнение"
+            >
+              <Scale className="w-4 h-4" />
+              <span>Сравнение</span>
+              {compareList.length > 0 && (
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-950 text-amberGold-400 text-[11px] font-bold font-mono">
+                  {compareList.length}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Mobile App Menu Trigger (< md) */}
+          <div className="flex md:hidden items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Открыть меню"
+              className="relative inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/8 hover:bg-white/15 border border-white/15 text-xs font-semibold text-white transition-colors"
+            >
+              <Menu className="w-4 h-4 text-amberGold-400" />
+              <span>Меню</span>
+              {compareList.length > 0 && (
+                <span className="flex h-4 min-w-[16px] px-1 items-center justify-center rounded-full bg-amberGold-500 text-slate-950 text-[10px] font-bold font-mono">
+                  {compareList.length}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Side App Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 z-50 md:hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/75"
+            />
+
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 320 }}
+              className="absolute right-0 top-0 bottom-0 w-[82vw] max-w-xs bg-[#11151d] border-l border-white/15 shadow-2xl flex flex-col text-white"
+            >
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between px-4 py-4 border-b border-white/10">
+                <div className="flex items-center gap-2.5">
+                  <img
+                    src="assets/logo.png"
+                    alt="NV86 AuToMix"
+                    className="h-8 w-8 rounded-lg object-cover border border-white/20"
+                  />
+                  <div>
+                    <div className="text-sm font-black tracking-tight">
+                      NV86 <span className="text-amberGold-400">AuTo</span>Mix
+                    </div>
+                    <div className="text-[11px] text-frost-300 flex items-center gap-1">
+                      <Snowflake className="w-3 h-3 text-frost-400" />
+                      <span>ХМАО · 86 регион</span>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Закрыть меню"
+                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Drawer Actions */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                {/* Winter mode */}
+                <button
+                  type="button"
+                  onClick={() => setWinterMode((prev) => !prev)}
+                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-left transition-colors ${
+                    winterMode
+                      ? 'bg-frost-500/15 border-frost-400/35 text-white'
+                      : 'bg-white/5 border-white/10 text-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Snowflake
+                      className={`w-4 h-4 ${winterMode ? 'text-frost-400' : 'text-slate-400'}`}
+                    />
+                    <div>
+                      <div className="text-xs font-bold">Режим ХМАО (-40 °C)</div>
+                      <div className="text-[11px] text-slate-400">
+                        {winterMode ? 'Включены зимние интервалы' : 'Штатные интервалы РФ'}
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                      winterMode
+                        ? 'bg-frost-400/20 text-frost-300'
+                        : 'bg-white/10 text-slate-400'
+                    }`}
+                  >
+                    {winterMode ? 'ВКЛ' : 'ВЫКЛ'}
+                  </span>
+                </button>
+
+                {/* Theme */}
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-left"
+                >
+                  <div className="flex items-center gap-2.5">
+                    {theme === 'dark' ? (
+                      <Sun className="w-4 h-4 text-amberGold-400" />
+                    ) : (
+                      <Moon className="w-4 h-4 text-sky-300" />
+                    )}
+                    <div>
+                      <div className="text-xs font-bold">Тема оформления</div>
+                      <div className="text-[11px] text-slate-400">
+                        {theme === 'dark' ? 'Тёмная (ночная)' : 'Светлая (дневная)'}
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-[11px] text-amberGold-300 font-semibold">Сменить</span>
+                </button>
+
+                {/* View Mode */}
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-2">
+                  <div className="text-xs font-bold text-slate-200">Вид каталога</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setViewMode('grid');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold border ${
+                        viewMode === 'grid'
+                          ? 'bg-amberGold-500/20 text-amberGold-300 border-amberGold-500/40'
+                          : 'bg-black/20 text-slate-400 border-white/10'
+                      }`}
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <span>Карточки</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setViewMode('table');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold border ${
+                        viewMode === 'table'
+                          ? 'bg-amberGold-500/20 text-amberGold-300 border-amberGold-500/40'
+                          : 'bg-black/20 text-slate-400 border-white/10'
+                      }`}
+                    >
+                      <Table2 className="w-3.5 h-3.5" />
+                      <span>Таблица</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Training Presentation */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenGuide();
+                  }}
+                  className="w-full flex items-center gap-3 p-3.5 rounded-xl bg-amberGold-500/15 border border-amberGold-500/35 text-left"
+                >
+                  <GraduationCap className="w-5 h-5 text-amberGold-400 shrink-0" />
+                  <div>
+                    <div className="text-xs font-bold text-amberGold-300">
+                      Обучение по свечам
+                    </div>
+                    <div className="text-[11px] text-slate-300">
+                      NGK &amp; Denso: 9 слайдов, коды, фото
+                    </div>
+                  </div>
+                </button>
+
+                {/* Compare */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setIsCompareOpen(true);
+                  }}
+                  className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10 text-left"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Scale className="w-4 h-4 text-slate-300" />
+                    <div>
+                      <div className="text-xs font-bold">Сравнение авто</div>
+                      <div className="text-[11px] text-slate-400">
+                        {compareList.length > 0
+                          ? `Выбрано: ${compareList.length}`
+                          : 'Пока ничего не выбрано'}
+                      </div>
+                    </div>
+                  </div>
+                  {compareList.length > 0 && (
+                    <span className="px-2 py-0.5 rounded-full bg-amberGold-500 text-slate-950 text-xs font-bold font-mono">
+                      {compareList.length}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
