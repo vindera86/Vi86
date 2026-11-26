@@ -19,13 +19,13 @@
 - После изменений проверять десктоп (`1440×900`) и мобильную версию (`412×915`, `375×812`) в браузере (0 ошибок в консоли, без горизонтального скролла).
 
 ## 4. Публикация и безопасность
-- **Живой сайт:** https://nv86-automix.pages.dev/ (Cloudflare Pages, бесплатный тариф с безлимитным трафиком).
-- **Репозиторий GitHub:** https://github.com/vindera86/Vi86 (ветка `main`, строго **`Private`** — не делать публичным!).
+- **Живой сайт:** https://vindera86.github.io/Vi86/ (GitHub Pages, бесплатно и работает в РФ без VPN).
+- **Репозиторий GitHub:** https://github.com/vindera86/Vi86 (ветка `main`, **`Public`** для бесплатного GitHub Pages).
 - **Обновление сайта на проде:**
   ```powershell
   git add .
   git commit -m "Обновление сайта"
   git -c credential.helper=manager push origin main
   ```
-- Через ~30 секунд после `git push` Cloudflare Pages автоматически обновит https://nv86-automix.pages.dev/.
+- Через ~30 секунд после `git push` GitHub Actions (`.github/workflows/deploy.yml`) автоматически обновит https://vindera86.github.io/Vi86/.
 - Запрещено сохранять токены и секреты в файлы репозитория.
