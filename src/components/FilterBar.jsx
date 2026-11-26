@@ -183,7 +183,7 @@ export default function FilterBar({
 
           <div className="hidden sm:flex text-xs text-slate-400 font-mono items-center gap-2 shrink-0">
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Локальный поиск без задержек</span>
+            <span>Онлайн-подбор без задержек</span>
           </div>
 
         </div>
