@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { 
   RotateCcw, 
   ChevronDown, 
@@ -255,8 +256,8 @@ export default function FilterBar({
         {/* Practical Quick Technical Filters */}
         <div className="pt-2 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
-            <span className="hidden md:inline text-xs font-mono text-slate-400 font-semibold mr-1">
+          <div className="grid grid-cols-2 sm:inline-flex sm:flex-wrap items-center gap-1 sm:gap-1.5 w-full sm:w-auto p-1 rounded-2xl bg-slate-200/65 dark:bg-[#0b162a]/70 backdrop-blur-md border border-slate-300/80 dark:border-[#60a5fa]/20 shadow-[inset_0_1px_2px_rgba(255,255,255,0.45)] dark:shadow-[inset_0_1px_2px_rgba(147,197,253,0.12)]">
+            <span className="hidden md:inline text-xs font-mono text-slate-600 dark:text-slate-400 font-semibold px-2">
               Фильтр:
             </span>
 
@@ -266,13 +267,21 @@ export default function FilterBar({
               return (
                 <button
                   key={qf.id}
+                  type="button"
                   onClick={() => setActiveQuickFilter(isActive && qf.id !== 'all' ? 'all' : qf.id)}
-                  className={`flex items-center justify-center sm:justify-start gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium transition-all border cursor-pointer whitespace-nowrap ${
+                  className={`relative z-10 flex items-center justify-center sm:justify-start gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
                     isActive 
-                      ? 'bg-amberGold-500 text-slate-950 border-amberGold-400 shadow-glow-amber font-semibold' 
-                      : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10'
+                      ? 'text-slate-900 dark:text-[#e0f2fe]' 
+                      : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
+                  {isActive && (
+                    <motion.span
+                      layoutId="filter-quick-pill"
+                      transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
+                      className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-white/95 to-[#dbeafe]/85 dark:from-[#1e3a6d]/90 dark:to-[#122647]/95 backdrop-blur-md border border-white dark:border-[#93c5fd]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-2px_rgba(14,165,233,0.28)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)]"
+                    />
+                  )}
                   <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span>{qf.label}</span>
                 </button>

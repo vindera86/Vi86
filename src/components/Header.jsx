@@ -91,29 +91,45 @@ export default function Header({
             {/* Day / Night Glassmorphism Toggle */}
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
 
-            {/* View Mode Toggle: Grid / Table */}
-            <div className="flex items-center p-1 rounded-xl bg-black/20 border border-white/10">
+            {/* View Mode Toggle: Grid / Table (Liquid Glass Pill) */}
+            <div className="relative flex items-center p-1 rounded-2xl bg-slate-200/70 dark:bg-[#0b162a]/75 backdrop-blur-md border border-slate-300/80 dark:border-[#60a5fa]/20 shadow-[inset_0_1px_2px_rgba(255,255,255,0.45)] dark:shadow-[inset_0_1px_2px_rgba(147,197,253,0.12)]">
               <button
+                type="button"
                 onClick={() => setViewMode('grid')}
-                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer ${
                   viewMode === 'grid'
-                    ? 'bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'text-slate-900 dark:text-[#e0f2fe]'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Вид: Карточки"
               >
+                {viewMode === 'grid' && (
+                  <motion.span
+                    layoutId="header-view-pill"
+                    transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
+                    className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-white/95 to-[#dbeafe]/85 dark:from-[#1e3a6d]/90 dark:to-[#122647]/95 backdrop-blur-md border border-white dark:border-[#93c5fd]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-2px_rgba(14,165,233,0.28)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)]"
+                  />
+                )}
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span className="hidden lg:inline">Карточки</span>
               </button>
               <button
+                type="button"
                 onClick={() => setViewMode('table')}
-                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer ${
                   viewMode === 'table'
-                    ? 'bg-amberGold-500/20 text-amberGold-400 border border-amberGold-500/30'
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'text-slate-900 dark:text-[#e0f2fe]'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                 }`}
                 title="Вид: Таблица спецификаций"
               >
+                {viewMode === 'table' && (
+                  <motion.span
+                    layoutId="header-view-pill"
+                    transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
+                    className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-white/95 to-[#dbeafe]/85 dark:from-[#1e3a6d]/90 dark:to-[#122647]/95 backdrop-blur-md border border-white dark:border-[#93c5fd]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-2px_rgba(14,165,233,0.28)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)]"
+                  />
+                )}
                 <Table2 className="w-3.5 h-3.5" />
                 <span className="hidden lg:inline">Таблица</span>
               </button>

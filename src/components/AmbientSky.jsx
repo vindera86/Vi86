@@ -22,10 +22,10 @@ const STARS = [
 ];
 
 const CLOUDS = [
-  { top: '6%', width: 240, height: 68, opacity: 0.55, dur: '68s', delay: '-12s' },
-  { top: '14%', width: 190, height: 54, opacity: 0.42, dur: '84s', delay: '-42s' },
-  { top: '24%', width: 280, height: 76, opacity: 0.36, dur: '96s', delay: '-26s' },
-  { top: '10%', width: 160, height: 46, opacity: 0.48, dur: '74s', delay: '-58s' },
+  { top: '6%', width: 260, height: 74, opacity: 0.85, dur: '64s', delay: '-12s' },
+  { top: '14%', width: 210, height: 60, opacity: 0.72, dur: '80s', delay: '-42s' },
+  { top: '24%', width: 300, height: 82, opacity: 0.65, dur: '92s', delay: '-26s' },
+  { top: '10%', width: 180, height: 52, opacity: 0.78, dur: '72s', delay: '-56s' },
 ];
 
 /**
@@ -89,14 +89,18 @@ export default function AmbientSky({ theme }) {
               >
                 <defs>
                   <linearGradient id={`cloudGrad-${idx}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-                    <stop offset="100%" stopColor="#dbeafe" stopOpacity="0.55" />
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.98" />
+                    <stop offset="55%" stopColor="#bae6fd" stopOpacity="0.88" />
+                    <stop offset="100%" stopColor="#7dd3fc" stopOpacity="0.72" />
                   </linearGradient>
                 </defs>
                 <path
                   d="M42 58H198C214.569 58 228 46.359 228 32C228 19.04 217.07 8.29 202.75 6.32C197.43 -2.01 187.48 -6.5 176.5 -4.9C169.36 -14.7 156.25 -20 142.5 -17.5C130.9 -26.2 113.8 -25.1 103.5 -14.8C91.2 -17.5 78.2 -11.4 72.5 0.2C56.8 -0.8 43.2 8.7 39.2 22.4C25.5 23.8 15 34.1 15 46.5C15 53.1 26.8 58 42 58Z"
                   transform="translate(0 14)"
                   fill={`url(#cloudGrad-${idx})`}
+                  stroke="#60a5fa"
+                  strokeOpacity="0.35"
+                  strokeWidth="1.2"
                 />
               </svg>
             </div>

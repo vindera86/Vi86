@@ -303,26 +303,34 @@ export default function Hero({
           </AnimatePresence>
         </motion.div>
 
-        {/* Quick Brand Filter Chips */}
+        {/* Quick Brand Filter Chips (Liquid Glass) */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.15 }}
-          className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-1.5"
+          className="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/60 dark:bg-[#0b162a]/65 backdrop-blur-md border border-slate-300/75 dark:border-[#60a5fa]/20 shadow-[inset_0_1px_2px_rgba(255,255,255,0.45)] dark:shadow-[inset_0_1px_2px_rgba(147,197,253,0.12)]"
         >
           {popularBrands.map((b) => {
             const isActive = selectedBrand === b || (b === 'Все марки' && !selectedBrand);
             return (
               <motion.button
                 key={b}
-                whileTap={{ scale: 0.95 }}
+                type="button"
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setSelectedBrand(b === 'Все марки' ? '' : b)}
-                className={`px-2.5 py-1 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                className={`relative z-10 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors duration-200 cursor-pointer ${
                   isActive 
-                    ? 'bg-amberGold-500 text-slate-950 font-semibold shadow-glow-amber border border-amberGold-400' 
-                    : 'glass-card text-slate-300 hover:text-white border-white/10 hover:border-white/20'
+                    ? 'text-slate-900 dark:text-[#e0f2fe]' 
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
+                {isActive && (
+                  <motion.span
+                    layoutId="hero-brand-pill"
+                    transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
+                    className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-white/95 to-[#dbeafe]/85 dark:from-[#1e3a6d]/90 dark:to-[#122647]/95 backdrop-blur-md border border-white dark:border-[#93c5fd]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-2px_rgba(14,165,233,0.28)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)]"
+                  />
+                )}
                 {b}
               </motion.button>
             );

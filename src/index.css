@@ -18,7 +18,7 @@
   }
 
   html.light {
-    --bg-page: #f8fafc;
+    --bg-page: #f1f6fc;
     --bg-panel: #ffffff;
     --bg-card: #ffffff;
     --bg-card-hover: #f1f5f9;
@@ -28,7 +28,7 @@
     --text-primary: #0f172a;
     --text-secondary: #334155;
     --text-muted: #64748b;
-    --ambient-grad: radial-gradient(circle at 50% -10%, #fdba7430 0%, #f8fafc 65%);
+    --ambient-grad: radial-gradient(circle at 50% -8%, rgba(125, 211, 252, 0.36) 0%, #eef5fc 55%, #f8fafc 100%);
   }
 
   html, body {
@@ -348,7 +348,7 @@ html.theme-switching *::after {
   animation-name: sky-cloud-drift;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  filter: drop-shadow(0 8px 18px rgba(148, 197, 253, 0.25));
+  filter: drop-shadow(0 10px 22px rgba(59, 130, 246, 0.22));
 }
 
 @media (prefers-reduced-motion: reduce) {
