@@ -281,3 +281,80 @@ html.theme-switching *::after {
   transition: none !important;
   animation: none !important;
 }
+
+/* ================= AMBIENT SKY ANIMATIONS (GPU-COMPOSITED) ================= */
+@keyframes sky-twinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes sky-shooting-star {
+  0%, 82% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(-25deg);
+  }
+  85% {
+    opacity: 0.85;
+  }
+  94% {
+    opacity: 0;
+    transform: translate3d(-260px, 120px, 0) rotate(-25deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-260px, 120px, 0) rotate(-25deg);
+  }
+}
+
+@keyframes sky-cloud-drift {
+  0% {
+    transform: translate3d(-320px, 0, 0);
+  }
+  100% {
+    transform: translate3d(calc(100vw + 320px), 0, 0);
+  }
+}
+
+.sky-star {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: #dbeafe;
+  box-shadow: 0 0 6px rgba(147, 197, 253, 0.75);
+  animation-name: sky-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.sky-shooting-star {
+  position: absolute;
+  top: 10%;
+  right: 14%;
+  width: 90px;
+  height: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(186, 230, 253, 0.95), rgba(186, 230, 253, 0));
+  animation: sky-shooting-star 11s ease-out infinite;
+}
+
+.sky-cloud {
+  position: absolute;
+  left: 0;
+  animation-name: sky-cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 8px 18px rgba(148, 197, 253, 0.25));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-star,
+  .sky-shooting-star,
+  .sky-cloud {
+    animation: none !important;
+  }
+}

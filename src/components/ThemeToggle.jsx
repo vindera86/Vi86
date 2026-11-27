@@ -34,25 +34,35 @@ export default function ThemeToggle({ theme, onToggle, className = '' }) {
         }`}
       />
 
-      {/* Serene micro-stars (night) / soft mist dots (day) */}
+      {/* Serene twinkling micro-stars (night) / soft drifting cloud (day) */}
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute left-2.5 top-2 w-1 h-1 rounded-full bg-sky-200/80 transition-opacity duration-500 ${
+        className={`pointer-events-none absolute left-2 top-2 w-1 h-1 rounded-full bg-sky-200 transition-opacity duration-500 ${
+          isDark ? 'opacity-90 animate-pulse' : 'opacity-0'
+        }`}
+      />
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute left-4.5 bottom-2 w-0.5 h-0.5 rounded-full bg-sky-100 transition-opacity duration-500 ${
           isDark ? 'opacity-80' : 'opacity-0'
         }`}
       />
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute left-4.5 bottom-2 w-0.5 h-0.5 rounded-full bg-sky-100/70 transition-opacity duration-500 ${
-          isDark ? 'opacity-70' : 'opacity-0'
+        className={`pointer-events-none absolute left-3.5 top-1.5 w-0.5 h-0.5 rounded-full bg-white transition-opacity duration-500 ${
+          isDark ? 'opacity-75' : 'opacity-0'
         }`}
       />
-      <span
+      <motion.span
         aria-hidden="true"
-        className={`pointer-events-none absolute right-2.5 top-2.5 w-1.5 h-1.5 rounded-full bg-white/75 transition-opacity duration-500 ${
-          isDark ? 'opacity-0' : 'opacity-85'
-        }`}
-      />
+        initial={false}
+        animate={isDark ? { opacity: 0, x: 4 } : { opacity: 0.9, x: 0 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 flex items-end"
+      >
+        <span className="w-3.5 h-2 rounded-full bg-white/85 shadow-[0_1px_3px_rgba(14,165,233,0.2)]" />
+        <span className="-ml-2 mb-0.5 w-2 h-2 rounded-full bg-white/95" />
+      </motion.span>
 
       {/* Frosted Glass Sliding Thumb */}
       <motion.span

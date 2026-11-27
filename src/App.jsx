@@ -10,6 +10,7 @@ import React, {
 import carsUrl from './data/cars.json?url';
 
 import Header from './components/Header';
+import AmbientSky from './components/AmbientSky';
 import Hero from './components/Hero';
 import FilterBar from './components/FilterBar';
 import CarCard from './components/CarCard';
@@ -425,8 +426,9 @@ export default function App() {
   return (
     <div className="relative flex flex-col min-h-screen font-sans selection:bg-amberGold-500/30">
       
-      {/* Hardware-accelerated ambient background */}
+      {/* Hardware-accelerated ambient background & serene sky */}
       <div className="ambient-bg" />
+      <AmbientSky theme={theme} />
 
       {/* Toast popup */}
       <Toast message={toastMessage} visible={isToastVisible} />
