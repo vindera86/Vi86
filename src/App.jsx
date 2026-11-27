@@ -453,6 +453,8 @@ export default function App() {
         selectedBrand={selectedBrand}
         setSelectedBrand={setSelectedBrand}
         brands={brands}
+        carsData={carsData}
+        onSelectCar={setSelectedCar}
         totalCars={carsData.length}
         filteredCount={filteredCars.length}
       />
