@@ -131,6 +131,8 @@ const WMI_MAP = {
   JM1: { brands: ['Mazda'], label: 'Mazda (Япония)' },
   JF1: { brands: ['Subaru'], label: 'Subaru (Япония)' },
   JF2: { brands: ['Subaru'], label: 'Subaru (Япония)' },
+  JSA: { brands: ['Suzuki'], label: 'Suzuki (Япония)' },
+  TSM: { brands: ['Suzuki'], label: 'Suzuki (Венгрия)' },
   YV1: { brands: ['Volvo'], label: 'Volvo (Швеция)' },
   YV4: { brands: ['Volvo'], label: 'Volvo (Швеция)' },
   WF0: { brands: ['Ford'], label: 'Ford (Европа)' },
