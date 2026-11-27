@@ -148,6 +148,7 @@ const WMI_MAP = {
   L6T: { brands: ['Belgee / Geely'], label: 'Geely (Китай)' },
   Y3W: { brands: ['Belgee / Geely'], label: 'БелДжи (Беларусь)' },
   X7W: { brands: ['Москвич'], label: 'Москвич (Москва)' },
+  Y6D: { brands: ['ЗАЗ'], label: 'ЗАЗ (Запорожье)' },
 };
 
 // NHTSA Make -> catalog brand name
