@@ -230,10 +230,12 @@ function detectVdsDetails(vin) {
 
   if (wmi === 'XTA') {
     if (vds.startsWith('GFL') || vds.startsWith('GFS')) return { brands: ['LADA'], modelHint: 'Vesta', excludeHint: 'CNG' };
+    if (/^(1117|1118|1119)/.test(vds)) return { brands: ['LADA'], modelHint: 'Kalina' };
     if (/^(2190|2191|2192|2194)/.test(vds)) return { brands: ['LADA'], modelHint: 'Granta', excludeHint: 'CNG' };
     if (/^(FS0|KS0|RS0)/.test(vds)) return { brands: ['LADA'], modelHint: 'Largus', excludeHint: 'CNG' };
     if (vds.startsWith('GAB')) return { brands: ['LADA'], modelHint: 'XRAY', excludeHint: 'CNG' };
     if (/^(2170|2171|2172)/.test(vds)) return { brands: ['LADA'], modelHint: 'Priora' };
+    if (vds.startsWith('2120')) return { brands: ['LADA'], modelHint: 'Надежда' };
     if (vds.startsWith('21214')) return { brands: ['LADA'], modelHint: 'Niva Legend', excludeHint: 'CNG' };
     if (vds.startsWith('2123')) return { brands: ['LADA'], modelHint: '2123' };
     if (/^(2121|2131)/.test(vds)) return { brands: ['LADA'], modelHint: '2121 / 21213' };
