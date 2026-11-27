@@ -402,16 +402,29 @@ const CROSS_ROWS = [
 
 export default function SparkPlugGuideModal({ isOpen, onClose }) {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [ngkExampleIdx, setNgkExampleIdx] = useState(0);
   const [densoExampleIdx, setDensoExampleIdx] = useState(0);
   const [zoomedImg, setZoomedImg] = useState(null);
   const contentRef = useRef(null);
+  const tabRefs = useRef([]);
+
+  const goToSlide = (nextIdx) => {
+    const clamped = Math.max(0, Math.min(SLIDES.length - 1, nextIdx));
+    if (clamped === activeSlide) return;
+    setDirection(clamped > activeSlide ? 1 : -1);
+    setActiveSlide(clamped);
+  };
 
   useBodyScrollLock(isOpen);
 
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.scrollTop = 0;
+    }
+    const activeTab = tabRefs.current[activeSlide];
+    if (activeTab && typeof activeTab.scrollIntoView === 'function') {
+      activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
   }, [activeSlide, isOpen]);
 
@@ -422,8 +435,20 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
         if (zoomedImg) setZoomedImg(null);
         else onClose();
       }
-      if (!zoomedImg && e.key === 'ArrowRight') setActiveSlide((s) => Math.min(SLIDES.length - 1, s + 1));
-      if (!zoomedImg && e.key === 'ArrowLeft') setActiveSlide((s) => Math.max(0, s - 1));
+      if (!zoomedImg && e.key === 'ArrowRight') {
+        setActiveSlide((s) => {
+          const next = Math.min(SLIDES.length - 1, s + 1);
+          if (next !== s) setDirection(1);
+          return next;
+        });
+      }
+      if (!zoomedImg && e.key === 'ArrowLeft') {
+        setActiveSlide((s) => {
+          const prev = Math.max(0, s - 1);
+          if (prev !== s) setDirection(-1);
+          return prev;
+        });
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -431,6 +456,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
 
   const currentNgk = NGK_EXAMPLES[ngkExampleIdx];
   const currentDenso = DENSO_EXAMPLES[densoExampleIdx];
+  const progressRatio = (activeSlide + 1) / SLIDES.length;
 
   return (
     <AnimatePresence>
@@ -440,76 +466,118 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.18 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/80"
+            className="absolute inset-0 bg-[#04070f]/85"
           />
 
           <motion.div
             data-keep-dark
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12 }}
-            transition={{ duration: 0.16, ease: 'easeOut' }}
-            className="relative w-[96vw] max-w-7xl h-[90vh] sm:h-[88vh] flex flex-col rounded-2xl bg-[#11151d] border border-white/15 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_20px_50px_-15px_rgba(0,0,0,0.85)] overflow-hidden text-white"
+            initial={{ opacity: 0, y: 16, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 14, scale: 0.985 }}
+            transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.9 }}
+            className="relative w-[96vw] max-w-7xl h-[90vh] sm:h-[88vh] flex flex-col rounded-2xl bg-gradient-to-b from-[#0d192e] via-[#0b1322] to-[#080d17] border border-[#60a5fa]/25 shadow-[inset_0_1px_0_0_rgba(186,230,253,0.22),0_25px_65px_-15px_rgba(2,6,23,0.92)] overflow-hidden text-white"
           >
+            {/* Subtle top atmospheric glow */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.14),transparent_70%)]"
+            />
+
             {/* Header */}
-            <div className="shrink-0 flex items-start justify-between gap-3 px-4 sm:px-6 pt-4 sm:pt-5 pb-3 border-b border-white/10">
+            <div className="relative shrink-0 flex items-start justify-between gap-3 px-4 sm:px-6 pt-4 sm:pt-5 pb-3.5 border-b border-[#60a5fa]/15">
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a6d]/80 to-[#0f2242]/90 border border-[#7dd3fc]/35 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_4px_14px_-4px_rgba(56,189,248,0.35)] flex items-center justify-center text-sky-300 shrink-0">
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-2 py-0.5 rounded-md bg-amber-500 text-[#0d1117] text-[10px] font-bold tracking-wider uppercase shrink-0">
-                      ПРЕЗЕНТАЦИЯ • {activeSlide + 1} / {SLIDES.length}
+                    <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500/25 to-amber-500/25 border border-sky-400/35 text-sky-200 text-[10px] font-bold font-mono tracking-wider uppercase shrink-0">
+                      МОДУЛЬ • {activeSlide + 1} / {SLIDES.length}
                     </span>
                     <span className="hidden sm:inline text-xs text-slate-400">
-                      Каталоги NGK &amp; Denso • Обучение автоподбору
+                      Интерактивный курс NGK &amp; Denso • ХМАО (-40 °C)
                     </span>
                   </div>
-                  <h2 className="text-sm sm:text-xl font-bold text-white mt-1 leading-tight truncate">
-                    {SLIDES[activeSlide].title}
-                  </h2>
+                  <div className="mt-1 overflow-hidden">
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.h2
+                        key={SLIDES[activeSlide].id}
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-sm sm:text-xl font-bold text-white leading-tight truncate"
+                      >
+                        {SLIDES[activeSlide].title}
+                      </motion.h2>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.92 }}
                 onClick={onClose}
                 aria-label="Закрыть обучение"
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 hover:text-white transition-colors shrink-0"
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white transition-colors shrink-0 cursor-pointer"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
 
-            {/* Slide Tabs */}
-            <div className="shrink-0 px-4 sm:px-6 py-2.5 border-b border-white/10 bg-white/[0.02] flex items-center gap-1.5 overflow-x-auto">
-              {SLIDES.map((s, idx) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setActiveSlide(idx)}
-                  className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border ${
-                    activeSlide === idx
-                      ? 'bg-amber-500 text-[#0d1117] border-amber-400 shadow-sm'
-                      : 'bg-white/5 text-slate-200 border-white/10 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  {s.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Slide Content */}
-            <div ref={contentRef} className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 py-4 sm:py-5">
+            {/* Animated Progress Bar */}
+            <div className="relative h-[2px] w-full bg-white/5 shrink-0 overflow-hidden">
               <motion.div
-                key={SLIDES[activeSlide].id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.12 }}
-                className="space-y-4"
-              >
+                className="h-full origin-left bg-gradient-to-r from-sky-400 via-cyan-300 to-amber-400"
+                initial={false}
+                animate={{ scaleX: progressRatio }}
+                transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+              />
+            </div>
+
+            {/* Slide Tabs (Liquid Glass Pills) */}
+            <div className="shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#60a5fa]/15 bg-[#070d18]/75 flex items-center gap-1.5 overflow-x-auto">
+              {SLIDES.map((s, idx) => {
+                const isActive = activeSlide === idx;
+                return (
+                  <button
+                    key={s.id}
+                    ref={(el) => {
+                      tabRefs.current[idx] = el;
+                    }}
+                    type="button"
+                    onClick={() => goToSlide(idx)}
+                    className={`relative z-10 shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer ${
+                      isActive ? 'text-[#e0f2fe]' : 'text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="guide-slide-pill"
+                        transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
+                        className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-[#1e3a6d]/95 to-[#122647]/95 backdrop-blur-md border border-[#93c5fd]/45 shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.6)]"
+                      />
+                    )}
+                    {s.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Slide Content (Directional GPU Transition) */}
+            <div ref={contentRef} className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 sm:px-6 py-4 sm:py-5">
+              <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <motion.div
+                  key={SLIDES[activeSlide].id}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction * 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction * -24 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="space-y-4"
+                >
                   {/* SLIDE 1: TYPES (REAL CATALOG PHOTOS) */}
                   {activeSlide === 0 && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -675,21 +743,29 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">
                             Примеры расшифровки NGK (нажмите на артикул)
                           </span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {NGK_EXAMPLES.map((ex, idx) => (
-                              <button
-                                key={ex.code}
-                                type="button"
-                                onClick={() => setNgkExampleIdx(idx)}
-                                className={`px-2.5 py-1 rounded-lg font-mono text-xs font-bold border transition-colors ${
-                                  ngkExampleIdx === idx
-                                    ? 'bg-amber-500 text-[#0d1117] border-amber-400'
-                                    : 'bg-white/5 text-slate-200 border-white/10 hover:bg-white/10'
-                                }`}
-                              >
-                                {ex.code}
-                              </button>
-                            ))}
+                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-[#070d18]/70 border border-white/10">
+                            {NGK_EXAMPLES.map((ex, idx) => {
+                              const isActive = ngkExampleIdx === idx;
+                              return (
+                                <button
+                                  key={ex.code}
+                                  type="button"
+                                  onClick={() => setNgkExampleIdx(idx)}
+                                  className={`relative z-10 px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-colors cursor-pointer ${
+                                    isActive ? 'text-[#fef3c7]' : 'text-slate-300 hover:text-white'
+                                  }`}
+                                >
+                                  {isActive && (
+                                    <motion.span
+                                      layoutId="guide-ngk-pill"
+                                      transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+                                      className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-b from-amber-500/35 to-amber-600/25 border border-amber-400/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]"
+                                    />
+                                  )}
+                                  {ex.code}
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                         <div className="text-xs text-slate-400">
@@ -772,21 +848,29 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           <span className="text-xs font-semibold uppercase tracking-wider text-sky-400">
                             Примеры расшифровки Denso (нажмите на артикул)
                           </span>
-                          <div className="flex flex-wrap gap-1.5">
-                            {DENSO_EXAMPLES.map((ex, idx) => (
-                              <button
-                                key={ex.code}
-                                type="button"
-                                onClick={() => setDensoExampleIdx(idx)}
-                                className={`px-2.5 py-1 rounded-lg font-mono text-xs font-bold border transition-colors ${
-                                  densoExampleIdx === idx
-                                    ? 'bg-sky-500 text-[#0d1117] border-sky-400'
-                                    : 'bg-white/5 text-slate-200 border-white/10 hover:bg-white/10'
-                                }`}
-                              >
-                                {ex.code}
-                              </button>
-                            ))}
+                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-[#070d18]/70 border border-white/10">
+                            {DENSO_EXAMPLES.map((ex, idx) => {
+                              const isActive = densoExampleIdx === idx;
+                              return (
+                                <button
+                                  key={ex.code}
+                                  type="button"
+                                  onClick={() => setDensoExampleIdx(idx)}
+                                  className={`relative z-10 px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-colors cursor-pointer ${
+                                    isActive ? 'text-[#e0f2fe]' : 'text-slate-300 hover:text-white'
+                                  }`}
+                                >
+                                  {isActive && (
+                                    <motion.span
+                                      layoutId="guide-denso-pill"
+                                      transition={{ type: 'spring', stiffness: 340, damping: 28 }}
+                                      className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-b from-sky-500/35 to-sky-600/25 border border-sky-400/50 shadow-[inset_0_1px_1px_rgba(186,230,253,0.25)]"
+                                    />
+                                  )}
+                                  {ex.code}
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                         <div className="text-xs text-slate-400">
@@ -1295,20 +1379,22 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                       </div>
                     </div>
                   )}
-              </motion.div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            {/* Footer Navigation */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-white/10 bg-[#0d1117]/80">
-              <button
+            {/* Footer Navigation (Liquid Glass) */}
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-[#60a5fa]/15 bg-[#070d18]/85">
+              <motion.button
                 type="button"
-                onClick={() => setActiveSlide((s) => Math.max(0, s - 1))}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => goToSlide(activeSlide - 1)}
                 disabled={activeSlide === 0}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 disabled:opacity-40 disabled:pointer-events-none border border-white/10 text-xs font-medium text-slate-200 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 disabled:opacity-35 disabled:pointer-events-none border border-white/15 text-xs font-semibold text-slate-200 transition-colors cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
                 <span>Назад</span>
-              </button>
+              </motion.button>
 
               <div className="flex items-center gap-1.5">
                 {SLIDES.map((s, idx) => (
@@ -1316,31 +1402,35 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                     key={s.id}
                     type="button"
                     aria-label={s.label}
-                    onClick={() => setActiveSlide(idx)}
-                    className={`h-2 rounded-full transition-all ${
-                      activeSlide === idx ? 'w-6 bg-amber-400' : 'w-2 bg-white/25 hover:bg-white/40'
+                    onClick={() => goToSlide(idx)}
+                    className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeSlide === idx
+                        ? 'w-6 bg-gradient-to-r from-sky-400 to-amber-400 shadow-[0_0_8px_rgba(56,189,248,0.5)]'
+                        : 'w-2 bg-white/25 hover:bg-white/45'
                     }`}
                   />
                 ))}
               </div>
 
               {activeSlide < SLIDES.length - 1 ? (
-                <button
+                <motion.button
                   type="button"
-                  onClick={() => setActiveSlide((s) => Math.min(SLIDES.length - 1, s + 1))}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0d1117] text-xs font-bold transition-colors"
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => goToSlide(activeSlide + 1)}
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1e3a6d] to-[#122647] hover:from-[#254784] hover:to-[#17305a] border border-[#93c5fd]/45 text-[#e0f2fe] text-xs font-bold shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)] transition-colors cursor-pointer"
                 >
                   <span>Далее</span>
                   <ChevronRight className="w-4 h-4" />
-                </button>
+                </motion.button>
               ) : (
-                <button
+                <motion.button
                   type="button"
+                  whileTap={{ scale: 0.96 }}
                   onClick={onClose}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#0d1117] text-xs font-bold transition-colors"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#0d1117] text-xs font-bold shadow-[0_4px_14px_-2px_rgba(16,185,129,0.45)] transition-colors cursor-pointer"
                 >
                   <span>Готово</span>
-                </button>
+                </motion.button>
               )}
             </div>
           </motion.div>
@@ -1352,16 +1442,23 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.16 }}
                 onClick={() => setZoomedImg(null)}
-                className="fixed inset-0 z-[60] bg-black/92 flex flex-col items-center justify-center p-4 cursor-zoom-out"
+                className="fixed inset-0 z-[60] bg-[#04070f]/92 flex flex-col items-center justify-center p-4 cursor-zoom-out"
               >
-                <div className="max-w-5xl max-h-[85vh] bg-white rounded-2xl p-3 shadow-2xl flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+                  className="max-w-5xl max-h-[85vh] bg-white rounded-2xl p-3 shadow-2xl flex items-center justify-center"
+                >
                   <img
                     src={zoomedImg.src}
                     alt={zoomedImg.title}
                     className="max-h-[80vh] w-auto object-contain"
                   />
-                </div>
+                </motion.div>
                 <div className="mt-3 text-sm font-medium text-white text-center">
                   {zoomedImg.title}
                 </div>
