@@ -180,7 +180,7 @@ export default React.memo(function CarCard({
 
         <button
           onClick={() => onSelectCar(car)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amberGold-500 text-slate-950 hover:bg-amberGold-400 border border-amberGold-400 shadow-sm transition-all cursor-pointer"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-b from-amberGold-400 to-amberGold-500 text-slate-950 hover:from-amberGold-300 hover:to-amberGold-400 border border-amberGold-400 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6),0_4px_12px_-3px_rgba(245,158,11,0.35)] active:scale-[0.97] transition-all cursor-pointer"
         >
           <span>Техкарта авто</span>
           <ChevronRight className="w-3.5 h-3.5" />

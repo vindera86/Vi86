@@ -111,21 +111,28 @@ html.light .text-slate-500:not(.tech-schematic-screen *):not([data-keep-dark] *)
 }
 
 /* --- accents: bright on dark -> readable on light --- */
+html.light .text-amberGold-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amberGold-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amberGold-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amberGold-500:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amberGold-600:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-amber-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amber-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amber-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-amber-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
   color: #92400e !important;
 }
 
+html.light .text-frost-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-frost-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-frost-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-sky-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-sky-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-sky-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
-html.light .text-sky-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+html.light .text-sky-500:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-cyan-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-cyan-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-cyan-400:not(.tech-schematic-screen *):not([data-keep-dark] *) {
   color: #0369a1 !important;
 }
 
@@ -133,6 +140,12 @@ html.light .text-emerald-300:not(.tech-schematic-screen *):not([data-keep-dark] 
 html.light .text-emerald-400:not(.tech-schematic-screen *):not([data-keep-dark] *),
 html.light .text-emerald-500:not(.tech-schematic-screen *):not([data-keep-dark] *) {
   color: #047857 !important;
+}
+
+html.light .text-rose-200:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-rose-300:not(.tech-schematic-screen *):not([data-keep-dark] *),
+html.light .text-rose-400:not(.tech-schematic-screen *):not([data-keep-dark] *) {
+  color: #be123c !important;
 }
 
 /* --- borders written for dark backgrounds --- */

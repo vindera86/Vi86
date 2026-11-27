@@ -70,13 +70,15 @@ export default function Header({
 
           {/* Desktop Controls (md and above) */}
           <div className="hidden md:flex items-center gap-2 shrink-0">
-            {/* Winter -40°C / Standard Interval Toggle */}
-            <button
+            {/* Winter -40°C / Standard Interval Toggle (Liquid Glass) */}
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.96 }}
               onClick={() => setWinterMode((prev) => !prev)}
-              className={`flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-2xl text-xs font-semibold tracking-wide transition-all backdrop-blur-md border cursor-pointer ${
                 winterMode
-                  ? 'bg-frost-500/15 text-frost-300 border-frost-400/30 hover:bg-frost-500/25'
-                  : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-slate-200'
+                  ? 'bg-gradient-to-b from-sky-100/90 to-sky-200/75 dark:from-[#1b3a66]/90 dark:to-[#0f2444]/95 text-sky-900 dark:text-[#bae6fd] border-sky-300 dark:border-[#7dd3fc]/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.85),0_4px_12px_-3px_rgba(14,165,233,0.25)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.3),0_4px_12px_-3px_rgba(2,6,23,0.5)]'
+                  : 'bg-slate-200/70 dark:bg-[#0b162a]/70 text-slate-700 dark:text-slate-300 border-slate-300/80 dark:border-white/15 hover:bg-slate-200 dark:hover:bg-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:shadow-none'
               }`}
               title={
                 winterMode
@@ -84,9 +86,9 @@ export default function Header({
                   : 'Штатный режим: показаны заводские интервалы замены'
               }
             >
-              <Snowflake className={`w-3.5 h-3.5 ${winterMode ? 'text-frost-400' : 'text-slate-400'}`} />
+              <Snowflake className={`w-3.5 h-3.5 ${winterMode ? 'text-sky-600 dark:text-sky-300' : 'text-slate-500 dark:text-slate-400'}`} />
               <span className="hidden xl:inline">{winterMode ? '-40°C' : 'Штат'}</span>
-            </button>
+            </motion.button>
 
             {/* Day / Night Glassmorphism Toggle */}
             <ThemeToggle theme={theme} onToggle={toggleTheme} />
@@ -135,23 +137,27 @@ export default function Header({
               </button>
             </div>
 
-            {/* Spark Plug Training Presentation Trigger */}
-            <button
+            {/* Spark Plug Training Presentation Trigger (Liquid Glass) */}
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.96 }}
               onClick={onOpenGuide}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer bg-white/5 text-slate-200 border-white/10 hover:bg-amberGold-500/15 hover:text-amberGold-300 hover:border-amberGold-400/30"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl text-xs font-semibold tracking-wide transition-all backdrop-blur-md border cursor-pointer bg-gradient-to-b from-white/90 to-[#e0f2fe]/80 dark:from-[#1a335c]/85 dark:to-[#0f203d]/95 text-slate-800 dark:text-[#e0f2fe] border-sky-300/80 dark:border-[#7dd3fc]/35 hover:border-sky-400 dark:hover:border-[#93c5fd]/55 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-3px_rgba(14,165,233,0.2)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.28),0_4px_12px_-3px_rgba(2,6,23,0.5)]"
               title="Обучение по свечам NGK и Denso (презентация)"
             >
-              <GraduationCap className="w-4 h-4 text-amberGold-400 shrink-0" />
+              <GraduationCap className="w-4 h-4 text-sky-600 dark:text-sky-300 shrink-0" />
               <span>Обучение</span>
-            </button>
+            </motion.button>
 
-            {/* Comparison Drawer Trigger */}
-            <button
+            {/* Comparison Drawer Trigger (Liquid Glass) */}
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.96 }}
               onClick={() => setIsCompareOpen(true)}
-              className={`relative flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
+              className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl text-xs font-semibold tracking-wide transition-all backdrop-blur-md border cursor-pointer ${
                 compareList.length > 0
-                  ? 'bg-amberGold-500 text-slate-950 border-amberGold-400 shadow-glow-amber'
-                  : 'bg-white/5 text-slate-300 border-white/10 hover:bg-white/10'
+                  ? 'bg-gradient-to-b from-amber-300 to-amber-500 text-slate-950 border-amber-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.75),0_4px_14px_-2px_rgba(245,158,11,0.45)]'
+                  : 'bg-slate-200/70 dark:bg-[#0b162a]/70 text-slate-700 dark:text-slate-300 border-slate-300/80 dark:border-white/15 hover:bg-slate-200 dark:hover:bg-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:shadow-none'
               }`}
               title="Сравнение"
             >
@@ -162,29 +168,30 @@ export default function Header({
                   {compareList.length}
                 </span>
               )}
-            </button>
+            </motion.button>
           </div>
 
-          {/* Mobile App Menu Trigger (< md) */}
+          {/* Mobile App Menu Trigger (< md, Liquid Glass) */}
           <div className="flex md:hidden items-center gap-2 shrink-0">
-            <button
+            <motion.button
               type="button"
+              whileTap={{ scale: 0.95 }}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Открыть меню"
-              className={`relative inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold transition-colors ${
+              className={`relative inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl backdrop-blur-md border text-xs font-semibold transition-colors cursor-pointer ${
                 theme === 'light'
-                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-900'
-                  : 'bg-white/10 hover:bg-white/15 border-white/15 text-white'
+                  ? 'bg-white/85 hover:bg-white border-sky-300/80 text-slate-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-3px_rgba(14,165,233,0.2)]'
+                  : 'bg-[#122647]/80 hover:bg-[#1a335c]/90 border-[#7dd3fc]/30 text-white shadow-[inset_0_1px_1px_rgba(186,230,253,0.25),0_4px_12px_-3px_rgba(2,6,23,0.5)]'
               }`}
             >
-              <Menu className="w-4 h-4 text-amberGold-400" />
+              <Menu className="w-4 h-4 text-sky-600 dark:text-sky-300" />
               <span>Меню</span>
               {compareList.length > 0 && (
                 <span className="flex h-4 min-w-[16px] px-1 items-center justify-center rounded-full bg-amberGold-500 text-slate-950 text-[10px] font-bold font-mono">
                   {compareList.length}
                 </span>
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
       </header>

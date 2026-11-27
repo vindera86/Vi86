@@ -472,12 +472,11 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
           />
 
           <motion.div
-            data-keep-dark
             initial={{ opacity: 0, y: 16, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 14, scale: 0.985 }}
             transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.9 }}
-            className="relative w-[96vw] max-w-7xl h-[90vh] sm:h-[88vh] flex flex-col rounded-2xl bg-gradient-to-b from-[#0d192e] via-[#0b1322] to-[#080d17] border border-[#60a5fa]/25 shadow-[inset_0_1px_0_0_rgba(186,230,253,0.22),0_25px_65px_-15px_rgba(2,6,23,0.92)] overflow-hidden text-white"
+            className="relative w-[96vw] max-w-7xl h-[90vh] sm:h-[88vh] flex flex-col rounded-2xl bg-gradient-to-b from-[#f8fbff] via-[#f1f6fc] to-[#e9f1fb] dark:from-[#0d192e] dark:via-[#0b1322] dark:to-[#080d17] border border-sky-300/60 dark:border-[#60a5fa]/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_25px_65px_-15px_rgba(15,23,42,0.28)] dark:shadow-[inset_0_1px_0_0_rgba(186,230,253,0.22),0_25px_65px_-15px_rgba(2,6,23,0.92)] overflow-hidden text-slate-900 dark:text-white"
           >
             {/* Subtle top atmospheric glow */}
             <div
@@ -486,17 +485,17 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
             />
 
             {/* Header */}
-            <div className="relative shrink-0 flex items-start justify-between gap-3 px-4 sm:px-6 pt-4 sm:pt-5 pb-3.5 border-b border-[#60a5fa]/15">
+            <div className="relative shrink-0 flex items-start justify-between gap-3 px-4 sm:px-6 pt-4 sm:pt-5 pb-3.5 border-b border-slate-200 dark:border-[#60a5fa]/15">
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1e3a6d]/80 to-[#0f2242]/90 border border-[#7dd3fc]/35 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_4px_14px_-4px_rgba(56,189,248,0.35)] flex items-center justify-center text-sky-300 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-100 to-sky-200/80 dark:from-[#1e3a6d]/80 dark:to-[#0f2242]/90 border border-sky-300 dark:border-[#7dd3fc]/35 shadow-[inset_0_1px_1px_rgba(255,255,255,0.85),0_4px_14px_-4px_rgba(14,165,233,0.25)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_4px_14px_-4px_rgba(56,189,248,0.35)] flex items-center justify-center text-sky-700 dark:text-sky-300 shrink-0">
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500/25 to-amber-500/25 border border-sky-400/35 text-sky-200 text-[10px] font-bold font-mono tracking-wider uppercase shrink-0">
+                    <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500/15 to-amber-500/15 dark:from-sky-500/25 dark:to-amber-500/25 border border-sky-400/40 dark:border-sky-400/35 text-sky-800 dark:text-sky-200 text-[10px] font-bold font-mono tracking-wider uppercase shrink-0">
                       МОДУЛЬ • {activeSlide + 1} / {SLIDES.length}
                     </span>
-                    <span className="hidden sm:inline text-xs text-slate-400">
+                    <span className="hidden sm:inline text-xs text-slate-600 dark:text-slate-400">
                       Интерактивный курс NGK &amp; Denso • ХМАО (-40 °C)
                     </span>
                   </div>
@@ -508,7 +507,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-sm sm:text-xl font-bold text-white leading-tight truncate"
+                        className="text-sm sm:text-xl font-bold text-slate-900 dark:text-white leading-tight truncate"
                       >
                         {SLIDES[activeSlide].title}
                       </motion.h2>
@@ -521,16 +520,16 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                 whileTap={{ scale: 0.92 }}
                 onClick={onClose}
                 aria-label="Закрыть обучение"
-                className="p-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/15 text-slate-200 hover:text-white transition-colors shrink-0 cursor-pointer"
+                className="p-2 rounded-xl bg-slate-200/70 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/15 border border-slate-300 dark:border-white/15 text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white transition-colors shrink-0 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </motion.button>
             </div>
 
             {/* Animated Progress Bar */}
-            <div className="relative h-[2px] w-full bg-white/5 shrink-0 overflow-hidden">
+            <div className="relative h-[2px] w-full bg-slate-200 dark:bg-white/5 shrink-0 overflow-hidden">
               <motion.div
-                className="h-full origin-left bg-gradient-to-r from-sky-400 via-cyan-300 to-amber-400"
+                className="h-full origin-left bg-gradient-to-r from-sky-500 via-cyan-400 to-amber-500 dark:from-sky-400 dark:via-cyan-300 dark:to-amber-400"
                 initial={false}
                 animate={{ scaleX: progressRatio }}
                 transition={{ type: 'spring', stiffness: 260, damping: 28 }}
@@ -538,7 +537,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
             </div>
 
             {/* Slide Tabs (Liquid Glass Pills) */}
-            <div className="shrink-0 px-4 sm:px-6 py-2.5 border-b border-[#60a5fa]/15 bg-[#070d18]/75 flex items-center gap-1.5 overflow-x-auto">
+            <div className="shrink-0 px-4 sm:px-6 py-2.5 border-b border-slate-200 dark:border-[#60a5fa]/15 bg-slate-200/55 dark:bg-[#070d18]/75 backdrop-blur-md flex items-center gap-1.5 overflow-x-auto">
               {SLIDES.map((s, idx) => {
                 const isActive = activeSlide === idx;
                 return (
@@ -550,14 +549,14 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                     type="button"
                     onClick={() => goToSlide(idx)}
                     className={`relative z-10 shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors duration-200 cursor-pointer ${
-                      isActive ? 'text-[#e0f2fe]' : 'text-slate-300 hover:text-white'
+                      isActive ? 'text-slate-900 dark:text-sky-900 dark:text-[#e0f2fe]' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="guide-slide-pill"
                         transition={{ type: 'spring', stiffness: 320, damping: 28, mass: 0.85 }}
-                        className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-[#1e3a6d]/95 to-[#122647]/95 backdrop-blur-md border border-[#93c5fd]/45 shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.6)]"
+                        className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-b from-white/95 to-[#dbeafe]/85 dark:from-[#1e3a6d]/95 dark:to-[#122647]/95 backdrop-blur-md border border-white dark:border-[#93c5fd]/45 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9),0_4px_12px_-2px_rgba(14,165,233,0.25)] dark:shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.6)]"
                       />
                     )}
                     {s.label}
@@ -584,7 +583,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                       {PLUG_TYPES.map((plug) => (
                         <div
                           key={plug.name}
-                          className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)]"
+                          className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12)]"
                         >
                           <button
                             type="button"
@@ -597,11 +596,11 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                               className="max-h-full w-auto object-contain transition-transform duration-200 group-hover:scale-105"
                             />
                             <span
-                              className={`absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold border bg-[#0d1117]/85 backdrop-blur-md ${plug.badgeClass}`}
+                              className={`absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold border bg-slate-100/90 dark:bg-[#0d1117]/85 backdrop-blur-md ${plug.badgeClass}`}
                             >
                               {plug.badge}
                             </span>
-                            <span className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-[#0d1117]/80 text-white opacity-75 group-hover:opacity-100 transition-opacity">
+                            <span className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-slate-100/90 dark:bg-[#0d1117]/80 text-white opacity-75 group-hover:opacity-100 transition-opacity">
                               <ZoomIn className="w-4 h-4" />
                             </span>
                           </button>
@@ -639,7 +638,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 1 && (
                     <div className="space-y-5">
                       {/* Cutaway + Resistor + Core */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
                         <button
                           type="button"
                           onClick={() =>
@@ -655,7 +654,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                             alt="Свеча зажигания NGK в разрезе"
                             className="max-h-[420px] w-auto object-contain"
                           />
-                          <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-[#0d1117]/85 text-white text-[13px] font-medium">
+                          <span className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-100/90 dark:bg-[#0d1117]/85 text-white text-[13px] font-medium">
                             <ZoomIn className="w-3.5 h-3.5" />
                             <span>Увеличить</span>
                           </span>
@@ -704,7 +703,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           {REAL_ELECTRODE_LIST.map((item) => (
                             <div
                               key={item.title}
-                              className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col sm:flex-row shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"
+                              className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col sm:flex-row shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"
                             >
                               <button
                                 type="button"
@@ -716,7 +715,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                                   alt={item.title}
                                   className="max-h-52 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
                                 />
-                                <span className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-[#0d1117]/80 text-white opacity-80 group-hover:opacity-100">
+                                <span className="absolute bottom-2 right-2 p-1.5 rounded-lg bg-slate-100/90 dark:bg-[#0d1117]/80 text-white opacity-80 group-hover:opacity-100">
                                   <ZoomIn className="w-3.5 h-3.5" />
                                 </span>
                               </button>
@@ -738,12 +737,12 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 2 && (
                     <div className="space-y-4">
                       {/* Interactive Examples */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
                         <div className="flex items-center justify-between flex-wrap gap-2">
                           <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">
                             Примеры расшифровки NGK (нажмите на артикул)
                           </span>
-                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-[#070d18]/70 border border-white/10">
+                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-slate-200/70 dark:bg-[#070d18]/70 border border-white/10">
                             {NGK_EXAMPLES.map((ex, idx) => {
                               const isActive = ngkExampleIdx === idx;
                               return (
@@ -752,7 +751,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                                   type="button"
                                   onClick={() => setNgkExampleIdx(idx)}
                                   className={`relative z-10 px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-colors cursor-pointer ${
-                                    isActive ? 'text-[#fef3c7]' : 'text-slate-300 hover:text-white'
+                                    isActive ? 'text-amber-900 dark:text-[#fef3c7]' : 'text-slate-300 hover:text-white'
                                   }`}
                                 >
                                   {isActive && (
@@ -788,7 +787,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
 
                       {/* Two-column Reference Tables */}
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden">
                           <div className="px-3.5 py-2.5 border-b border-white/10 bg-white/[0.03] text-xs font-bold text-white">
                             1. Префикс NGK: диаметр резьбы и ключ
                           </div>
@@ -816,7 +815,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           </div>
                         </div>
 
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2.5">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2.5">
                           <div className="text-xs font-bold text-white border-b border-white/10 pb-2">
                             2. Суффиксы NGK: длина, электрод, зазор
                           </div>
@@ -843,12 +842,12 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 3 && (
                     <div className="space-y-4">
                       {/* Interactive Examples */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
                         <div className="flex items-center justify-between flex-wrap gap-2">
                           <span className="text-xs font-semibold uppercase tracking-wider text-sky-400">
                             Примеры расшифровки Denso (нажмите на артикул)
                           </span>
-                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-[#070d18]/70 border border-white/10">
+                          <div className="flex flex-wrap gap-1.5 p-1 rounded-xl bg-slate-200/70 dark:bg-[#070d18]/70 border border-white/10">
                             {DENSO_EXAMPLES.map((ex, idx) => {
                               const isActive = densoExampleIdx === idx;
                               return (
@@ -857,7 +856,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                                   type="button"
                                   onClick={() => setDensoExampleIdx(idx)}
                                   className={`relative z-10 px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition-colors cursor-pointer ${
-                                    isActive ? 'text-[#e0f2fe]' : 'text-slate-300 hover:text-white'
+                                    isActive ? 'text-sky-900 dark:text-[#e0f2fe]' : 'text-slate-300 hover:text-white'
                                   }`}
                                 >
                                   {isActive && (
@@ -894,7 +893,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {/* Series + Thread */}
                         <div className="space-y-3">
-                          <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2">
+                          <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2">
                             <div className="text-xs font-bold text-white border-b border-white/10 pb-1.5">
                               1. Серии Denso (префикс и суффикс TT)
                             </div>
@@ -911,7 +910,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                             ))}
                           </div>
 
-                          <div className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden">
+                          <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden">
                             <div className="px-3.5 py-2 border-b border-white/10 bg-white/[0.03] text-xs font-bold text-white">
                               2. Резьба и шестигранник Denso
                             </div>
@@ -939,7 +938,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                         </div>
 
                         {/* Heat scale */}
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden flex flex-col">
                           <div className="px-3.5 py-2.5 border-b border-white/10 bg-white/[0.03] text-xs font-bold text-white flex items-center gap-2">
                             <Flame className="w-3.5 h-3.5 text-amber-400" />
                             <span>3. Таблица калильных чисел: Denso ↔ NGK</span>
@@ -979,7 +978,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 4 && (
                     <div className="space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
                           <div className="flex items-center gap-2">
                             <Zap className="w-4 h-4 text-amber-400" />
                             <h3 className="text-sm font-bold text-white">Свечи накаливания NGK (Glow Plugs)</h3>
@@ -1001,7 +1000,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           </div>
                         </div>
 
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
                           <div className="flex items-center gap-2">
                             <Sparkles className="w-4 h-4 text-sky-400" />
                             <h3 className="text-sm font-bold text-white">Свечи накаливания Denso (серия DG)</h3>
@@ -1042,7 +1041,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {/* SLIDE 6: CROSS-REFERENCE & MISTAKES */}
                   {activeSlide === 5 && (
                     <div className="space-y-4">
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden">
                         <div className="px-4 py-2.5 border-b border-white/10 bg-white/[0.03] text-xs font-bold text-white">
                           Кросс-таблица популярных свечей для РФ и ХМАО
                         </div>
@@ -1131,7 +1130,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                         ].map((item) => (
                           <div
                             key={item.title}
-                            className="rounded-xl bg-[#161b25]/90 border border-white/10 p-3.5 space-y-1.5"
+                            className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-3.5 space-y-1.5"
                           >
                             <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs">
                               <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -1160,7 +1159,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 7 && (
                     <div className="space-y-4">
                       {/* Torque Table */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 overflow-hidden">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 overflow-hidden">
                         <div className="px-4 py-2.5 border-b border-white/10 bg-white/[0.03] flex items-center justify-between flex-wrap gap-2">
                           <span className="text-xs font-bold text-white">
                             Моменты затяжки и углы доворота (стандарт каталога Denso)
@@ -1200,7 +1199,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                       </div>
 
                       {/* Real NGK Fouling Photo Guide */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-3.5 space-y-2">
                         <div className="text-xs font-bold text-white">
                           Реальные фото состояния теплового конуса (каталог NGK: перегрев &gt;870 °C • норма 450–870 °C • нагар &lt;450 °C)
                         </div>
@@ -1222,7 +1221,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           {DIAGNOSTICS_CARDS.map((card) => (
                             <div
                               key={card.title}
-                              className="rounded-xl bg-[#161b25]/90 border border-white/10 p-3.5 space-y-1.5"
+                              className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-3.5 space-y-1.5"
                             >
                               <div className="flex items-center justify-between gap-2">
                                 <span className="text-xs font-bold text-white leading-snug">
@@ -1246,7 +1245,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   {activeSlide === 8 && (
                     <div className="space-y-4">
                       {/* Section 1: Required Tools */}
-                      <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
+                      <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-3">
                         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
                           <Wrench className="w-4 h-4" />
                           <span>1. Какие инструменты нужны для правильной замены свечей</span>
@@ -1293,7 +1292,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
 
                       {/* Section 2: How to tighten + Ohm & Voltage */}
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-2.5 text-xs">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-2.5 text-xs">
                           <div className="text-xs font-bold uppercase tracking-wider text-sky-400">
                             2. Как правильно закручивать свечу (4 шага)
                           </div>
@@ -1313,7 +1312,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           </ol>
                         </div>
 
-                        <div className="rounded-xl bg-[#161b25]/90 border border-white/10 p-4 space-y-2.5 text-xs">
+                        <div className="rounded-xl bg-white/90 dark:bg-[#161b25]/90 border border-white/10 p-4 space-y-2.5 text-xs">
                           <div className="text-xs font-bold uppercase tracking-wider text-emerald-400">
                             3. Что такое Ом (Ω) и напряжение пробоя (кВ)
                           </div>
@@ -1339,37 +1338,37 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                           <span>4. Что будет, если поставить разные свечи или установить неправильно</span>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Разные типы свечей в одном ДВС</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Разное калильное число, зазор и сопротивление вызывают разную скорость сгорания по цилиндрам → вибрация («троение»), детонация в одном цилиндре, сбой топливных коррекций ЭБУ и риск прогара клапана.
                             </p>
                           </div>
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Перетяжка / смазка резьбы</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Срыв резьбы в алюминиевой ГБЦ (дорогой ремонт футоркой), микротрещина изолятора или разрыв корпуса свечи при следующем откручивании.
                             </p>
                           </div>
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Недотяжка (слабый момент)</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Кольцо не обжалось → газы прорываются наружу, нарушается отвод тепла в ГБЦ, возникает калильное зажигание, свеча перегревается и может выкрутиться сама.
                             </p>
                           </div>
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Длинная резьба (26.5 вместо 19 мм)</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Удар поршня/клапана о свечу либо закоксовка торчащих витков в камере сгорания — при выкручивании вырвет резьбу ГБЦ.
                             </p>
                           </div>
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Короткая резьба (19 вместо 26.5 мм)</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Искра утоплена в глубоком колодце, смесь плохо воспламеняется, а открытая резьба в ГБЦ быстро забивается нагаром.
                             </p>
                           </div>
-                          <div className="p-2.5 rounded-lg bg-[#0d1117]/60 border border-rose-500/20">
+                          <div className="p-2.5 rounded-lg bg-white/85 dark:bg-[#0d1117]/60 border border-rose-500/20">
                             <div className="font-bold text-rose-200">Конус вместо шайбы (и наоборот)</div>
                             <p className="text-slate-200 mt-1 leading-snug">
                               Нет герметичной посадки в ГБЦ → потеря компрессии, свист, прогар посадочного седла и ошибка по пропускам воспламенения.
@@ -1384,7 +1383,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
             </div>
 
             {/* Footer Navigation (Liquid Glass) */}
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-[#60a5fa]/15 bg-[#070d18]/85">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-[#60a5fa]/15 bg-slate-100/95 dark:bg-[#070d18]/85">
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.96 }}
@@ -1417,7 +1416,7 @@ export default function SparkPlugGuideModal({ isOpen, onClose }) {
                   type="button"
                   whileTap={{ scale: 0.96 }}
                   onClick={() => goToSlide(activeSlide + 1)}
-                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-b from-[#1e3a6d] to-[#122647] hover:from-[#254784] hover:to-[#17305a] border border-[#93c5fd]/45 text-[#e0f2fe] text-xs font-bold shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)] transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-b from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 dark:from-[#1e3a6d] dark:to-[#122647] dark:hover:from-[#254784] dark:hover:to-[#17305a] border border-sky-400 dark:border-[#93c5fd]/45 text-white dark:text-[#e0f2fe] text-xs font-bold shadow-[inset_0_1px_1px_rgba(186,230,253,0.35),0_4px_12px_-2px_rgba(2,6,23,0.55)] transition-colors cursor-pointer"
                 >
                   <span>Далее</span>
                   <ChevronRight className="w-4 h-4" />
