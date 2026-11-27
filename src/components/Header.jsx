@@ -5,13 +5,12 @@ import {
   Table2,
   Scale,
   Snowflake,
-  Sun,
-  Moon,
   GraduationCap,
   Menu,
   X,
 } from 'lucide-react';
 import useBodyScrollLock from '../hooks/useBodyScrollLock';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header({
   viewMode,
@@ -89,22 +88,8 @@ export default function Header({
               <span className="hidden xl:inline">{winterMode ? '-40°C' : 'Штат'}</span>
             </button>
 
-            {/* Day / Night Toggle */}
-            <button
-              onClick={toggleTheme}
-              className={`flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all border cursor-pointer ${
-                theme === 'light'
-                  ? 'bg-amber-100 text-amber-900 border-amber-300 hover:bg-amber-200 shadow-sm'
-                  : 'bg-white/5 text-amberGold-300 border-white/10 hover:bg-white/10'
-              }`}
-              title={theme === 'dark' ? 'Переключить на дневную тему' : 'Переключить на ночную тему'}
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amberGold-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-slate-800" />
-              )}
-            </button>
+            {/* Day / Night Glassmorphism Toggle */}
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
 
             {/* View Mode Toggle: Grid / Table */}
             <div className="flex items-center p-1 rounded-xl bg-black/20 border border-white/10">
@@ -297,32 +282,21 @@ export default function Header({
                 </button>
 
                 {/* Theme */}
-                <button
-                  type="button"
-                  onClick={toggleTheme}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border text-left ${
+                <div
+                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border ${
                     theme === 'light'
                       ? 'bg-slate-50 border-slate-200 text-slate-900'
                       : 'bg-white/5 border-white/10 text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    {theme === 'dark' ? (
-                      <Sun className="w-4 h-4 text-amberGold-400" />
-                    ) : (
-                      <Moon className="w-4 h-4 text-amber-700" />
-                    )}
-                    <div>
-                      <div className="text-xs font-bold">Тема оформления</div>
-                      <div className={`text-[11px] ${theme === 'light' ? 'text-slate-600' : 'text-slate-400'}`}>
-                        {theme === 'dark' ? 'Тёмная (ночная)' : 'Светлая (дневная)'}
-                      </div>
+                  <div>
+                    <div className="text-xs font-bold">Тема оформления</div>
+                    <div className={`text-[11px] ${theme === 'light' ? 'text-slate-600' : 'text-slate-400'}`}>
+                      {theme === 'dark' ? 'Тёмная (ночная)' : 'Светлая (дневная)'}
                     </div>
                   </div>
-                  <span className={`text-[11px] font-semibold ${theme === 'light' ? 'text-amber-700' : 'text-amberGold-300'}`}>
-                    Сменить
-                  </span>
-                </button>
+                  <ThemeToggle theme={theme} onToggle={toggleTheme} />
+                </div>
 
                 {/* View Mode */}
                 <div
